@@ -3397,6 +3397,34 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "SpellActions",
+            "id": "9daf0847-e462-458f-9c29-2701d4d00be2",
+            "actions": [
+                {
+                    "name": "Shoot",
+                    "type": "Button",
+                    "id": "e7659a8c-811d-4382-ac4b-d184fc179f2d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "85952f1b-ffe1-4440-9120-795def917183",
+                    "path": "<XRController>{RightHand}/{TriggerButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
