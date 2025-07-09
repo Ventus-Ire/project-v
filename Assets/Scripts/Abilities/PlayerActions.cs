@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class WeaponScript : MonoBehaviour
+public class PlayerActions : MonoBehaviour
 {
     [SerializeField] InputActionReference shootAction;
 
