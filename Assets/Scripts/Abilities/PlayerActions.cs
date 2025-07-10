@@ -5,19 +5,27 @@ public class PlayerActions : MonoBehaviour
 {
     [SerializeField] InputActionReference shootAction;
 
+    //PlayerShooting
+    [SerializeField] BulletSpawner spawner;
+
     private void Awake()
     {
         if(shootAction != null )
         {
             shootAction.action.Enable();
             shootAction.action.performed += Shoot;
+            //shootAction.action.canceled += Shoot;
             InputSystem.onDeviceChange += OnDeviceChange;
         }
     }
     private void OnDestory()
     {
         shootAction.action.Disable();
+
         shootAction.action.performed -= Shoot;
+        //shootAction.action.canceled -= Shoot;
+
+        //Handler for multiple devices
         InputSystem.onDeviceChange -= OnDeviceChange;
     }
 

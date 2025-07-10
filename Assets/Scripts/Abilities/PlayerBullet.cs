@@ -33,6 +33,10 @@ public class PlayerBullet : MonoBehaviour
             ReleaseFromPool();
         }
     }
+    public void SetPool(ObjectPool<PlayerBullet> newpool)
+    {
+        pool = newpool;
+    }
     private void OnEnable()
     {
         ApplyVelocity();
@@ -42,7 +46,7 @@ public class PlayerBullet : MonoBehaviour
     {
         if (body != null)
         {
-            body.angularVelocity = speed * transform.forward;
+            body.linearVelocity = speed * transform.forward;
         }
     }
 
