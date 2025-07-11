@@ -5,7 +5,8 @@ using UnityEngine.Pool;
 public class BulletSpawner : MonoBehaviour
 {
     [SerializeField] private PlayerBullet bulletPrefab;
-
+    [SerializeField] private GameObject bulletContainer;
+    [SerializeField] private float fireRate = 0.1f;
     [SerializeField] int bulletActive;
     [SerializeField] int bulletInactive;
 
@@ -19,7 +20,7 @@ public class BulletSpawner : MonoBehaviour
             canShoot = value;
             if(canShoot)
             {
-                StartCoroutine(BulletShot(.1f));
+                StartCoroutine(BulletShot(fireRate));
             }
             else
             {
@@ -55,6 +56,10 @@ public class BulletSpawner : MonoBehaviour
 
     private void GetBulletFromPool(PlayerBullet bullet)
     {
+        if (bullet.gameObject.transform.parent == null)
+        {
+            bullet.transform.SetParent(bulletContainer.transform);
+        }
         bullet.transform.position = transform.position;
         bullet.transform.rotation = transform.rotation;
         bullet.SetPool(bulletPool);
