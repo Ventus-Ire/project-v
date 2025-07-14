@@ -1,32 +1,27 @@
 using UnityEngine;
 using UnityEngine.Pool;
-public class PlayerBullet : MonoBehaviour
+
+public class Bullet : MonoBehaviour
 {
+    public Vector3 velocity;
     [SerializeField] private float speed;
     [SerializeField] private float lifeTime = 5f;
-    
-    private ObjectPool<PlayerBullet> pool;
+
+    private ObjectPool<Bullet> pool;
     private Rigidbody body;
     private float currentTime;
-
-    private void Awake()
+    void Awake()
     {
         body = GetComponent<Rigidbody>();
         currentTime = lifeTime;
     }
-
-    void Start()
+    private void Start()
     {
         ApplyVelocity();
     }
-
     void Update()
     {
         UpdateLifeTime();
-    }
-    public void SetPool(ObjectPool<PlayerBullet> newpool)
-    {
-        pool = newpool;
     }
 
     private void OnEnable()
@@ -39,10 +34,13 @@ public class PlayerBullet : MonoBehaviour
     {
         if (body != null)
         {
-            body.linearVelocity = speed * transform.forward;
+            body.linearVelocity = speed * velocity;
         }
     }
-
+    public void SetPool(ObjectPool<Bullet> newpool)
+    {
+        pool = newpool;
+    }
     private void ReleaseFromPool()
     {
         pool?.Release(this);
@@ -58,6 +56,4 @@ public class PlayerBullet : MonoBehaviour
             ReleaseFromPool();
         }
     }
-
-
 }

@@ -7,8 +7,8 @@ public class BulletSpawner : MonoBehaviour
     [SerializeField] private PlayerBullet bulletPrefab;
     [SerializeField] private GameObject bulletContainer;
     [SerializeField] private float fireRate = 0.1f;
-    [SerializeField] int bulletActive;
-    [SerializeField] int bulletInactive;
+    [SerializeField] int bulletActive; //TODO: Delete
+    [SerializeField] int bulletInactive; //TODO: Delete
 
     private ObjectPool<PlayerBullet> bulletPool;
     private bool canShoot;
@@ -17,24 +17,28 @@ public class BulletSpawner : MonoBehaviour
         get => canShoot;
         set 
         { 
-            canShoot = value;
-            if(canShoot)
+            if(canShoot != value)
             {
-                StartCoroutine(BulletShot(fireRate));
+                canShoot = value;
+                if (canShoot)
+                {
+                    StartCoroutine(BulletShot(fireRate));
+                }
+                else
+                {
+                    StopAllCoroutines();
+                }
             }
-            else
-            {
-                StopAllCoroutines();
-            }
+            
         }
     }
 
     void Start()
     {
-        bulletPool = new ObjectPool<PlayerBullet>(createFunc: InstiatePoolBullet, actionOnGet: GetBulletFromPool, actionOnRelease: ReturnBulletToPool, defaultCapacity: 10, maxSize: 100);
+        bulletPool = new ObjectPool<PlayerBullet>(createFunc: InstantiatePoolBullet, actionOnGet: GetBulletFromPool, actionOnRelease: ReturnBulletToPool, defaultCapacity: 10, maxSize: 100);
     }
 
-
+    //TODO: Delete
     void Update()
     {
         bulletActive = bulletPool.CountActive;
@@ -49,7 +53,7 @@ public class BulletSpawner : MonoBehaviour
         } 
     }
 
-    private PlayerBullet InstiatePoolBullet()
+    private PlayerBullet InstantiatePoolBullet()
     {
         return Instantiate(bulletPrefab);
     }
@@ -60,8 +64,7 @@ public class BulletSpawner : MonoBehaviour
         {
             bullet.transform.SetParent(bulletContainer.transform);
         }
-        bullet.transform.position = transform.position;
-        bullet.transform.rotation = transform.rotation;
+        bullet.transform.SetPositionAndRotation(transform.position, transform.rotation);
         bullet.SetPool(bulletPool);
         bullet.gameObject.SetActive(true);
     }
@@ -75,6 +78,7 @@ public class BulletSpawner : MonoBehaviour
         bulletPool.Get();
     }
 
+    //InstantiateBullet() gets called when you want to "fire" a bullet
     private IEnumerator BulletShot(float rateOfFire)
     {
         while (canShoot)
