@@ -2,11 +2,31 @@ using UnityEngine;
 using UnityEngine.Pool;
 public class BulletPool : MonoBehaviour
 {
+    private static BulletPool instance;
+    public static BulletPool Instance
+    {
+        get
+        {
+            if(instance == null)
+            {
+                Debug.LogError("Bullet Pool Instance Missing!!!");
+            }
+            return instance;
+        }
+    }
+
     [SerializeField] private Bullet bulletPrefab;
     [SerializeField] private GameObject bulletContainer;
 
-    private ObjectPool<Bullet> bulletPool;
+    public ObjectPool<Bullet> bulletPool;
 
+    private void Awake()
+    {
+        if (instance == null || instance != this)
+        {
+            instance = this;
+        }
+    }
 
     void Start()
     {
@@ -37,7 +57,8 @@ public class BulletPool : MonoBehaviour
                 bullet.transform.SetParent(bulletContainer.transform);
             }
         }
-        bullet.transform.SetPositionAndRotation(transform.position, transform.rotation);
+
+        //Sets the pool of the bullet so the bullet knows what pool it belongs to
         bullet.SetPool(bulletPool);
         bullet.gameObject.SetActive(true);
     }

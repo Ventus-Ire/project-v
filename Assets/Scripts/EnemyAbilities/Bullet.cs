@@ -4,7 +4,7 @@ using UnityEngine.Pool;
 public class Bullet : MonoBehaviour
 {
     public Vector3 velocity;
-    [SerializeField] private float speed;
+    public float speed;
     [SerializeField] private float lifeTime = 5f;
 
     private ObjectPool<Bullet> pool;
