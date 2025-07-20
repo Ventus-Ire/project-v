@@ -1,3 +1,4 @@
+using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -26,16 +27,19 @@ public class Bullet : MonoBehaviour
 
     private void OnEnable()
     {
-        ApplyVelocity();
         currentTime = lifeTime;
     }
 
-    private void ApplyVelocity()
+    public void ApplyVelocity()
     {
         if (body != null)
         {
+            //Gravity is overwritten because of linear velocity, need to add it later
+            //might also have to turn on use gravity in rigidbody
+            //velocity.y += -1f * Time.deltaTime;
             body.linearVelocity = speed * velocity;
         }
+        
     }
     public void SetPool(ObjectPool<Bullet> newpool)
     {
@@ -50,6 +54,7 @@ public class Bullet : MonoBehaviour
         if (currentTime > 0f)
         {
             currentTime -= Time.deltaTime;
+            ApplyVelocity();
         }
         else
         {
