@@ -1144,12 +1144,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settings:
-    NumberOfBullets: 8
+    NumberOfBullets: 5
     BulletSpeed: 1
     CooldownAfterShot: 1.2
-    NumberOfRings: 3
-    minRotation: -45
-    maxRotation: 45
+    NumberOfRings: 1
+    minRotation: 0
+    maxRotation: 360
     isRandom: 0
 --- !u!4 &1899944585
 Transform:

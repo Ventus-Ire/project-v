@@ -11,7 +11,7 @@ public class BulletShotTest : MonoBehaviour
         cooldownTimer -= Time.deltaTime;
         if (cooldownTimer <= 0f)
         {
-            BulletShotType.FixedRadiusShot(transform.position, transform.forward, settings);
+            BulletShotType.SphericalShot(transform.position, transform.forward, settings);
             cooldownTimer += settings.CooldownAfterShot;
         }
     }

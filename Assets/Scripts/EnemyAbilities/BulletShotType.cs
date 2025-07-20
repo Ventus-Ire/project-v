@@ -13,32 +13,12 @@ public static class BulletShotType
     public static void RadialShot(Vector3 origin, Vector3 velocity, RadialShotSettings settings)
     {
         float angleBetweenBullets = 360f / settings.NumberOfBullets;
-
         for(int i = 0; i < settings.NumberOfBullets; i++)
         {
             float bulletDirectionAngle = angleBetweenBullets * i; //90, 180, 270, etc.
             Vector3 bulletDirection = velocity.WorldRotate(bulletDirectionAngle);
-
             Shot(origin, bulletDirection, settings.BulletSpeed);
         }
-    }
-
-    public static void SphericalShot(Vector3 origin, Vector3 velocity, RadialShotSettings settings)
-    {
-        float angleBetweenBullets = 360f / settings.NumberOfBullets;
-        float sphereRingNumber = 90f / settings.NumberOfRings;
-        for (int j = 0;  j < settings.NumberOfRings; j++)
-        {
-            for (int i = 0; i < settings.NumberOfBullets; i++)
-            {
-                float bulletDirectionSphereAngle = sphereRingNumber * j;
-                float bulletDirectionAngle = angleBetweenBullets * i;
-                Vector3 bulletDirection = velocity.SphereRotate(bulletDirectionAngle, bulletDirectionSphereAngle);
-
-                Shot(origin, bulletDirection, settings.BulletSpeed);
-            }
-        }
-        
     }
 
     public static void FixedRadiusShot(Vector3 origin, Vector3 velocity, RadialShotSettings settings)
@@ -51,6 +31,24 @@ public static class BulletShotType
             Shot(origin, bulletDirection, settings.BulletSpeed);
             angleStart += angleStep;
         }
+    }
+    public static void SphericalShot(Vector3 origin, Vector3 velocity, RadialShotSettings settings)
+    {
+        float angleBetweenBullets = 360f / settings.NumberOfBullets;
+        float sphereAngleStep = (settings.maxRotation - settings.minRotation) / settings.NumberOfRings;
+        float sphereAngleStart = settings.minRotation;
+        for (int j = 0; j < settings.NumberOfRings; j++)
+        {
+            for (int i = 0; i < settings.NumberOfBullets; i++)
+            {
+                float bulletDirectionAngle = angleBetweenBullets * i;
+                Vector3 bulletDirection = velocity.SphereRotate(bulletDirectionAngle, sphereAngleStart);
+
+                Shot(origin, bulletDirection, settings.BulletSpeed);
+            }
+            sphereAngleStart += sphereAngleStep;
+        }
+
     }
 
     // Maybe put these in extension methods for later
