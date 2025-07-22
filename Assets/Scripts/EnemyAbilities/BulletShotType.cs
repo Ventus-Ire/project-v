@@ -21,7 +21,7 @@ public static class BulletShotType
         }
     }
 
-    public static void FixedRadiusShot(Vector3 origin, Vector3 velocity, RadialShotSettings settings)
+    public static void SpreadShot(Vector3 origin, Vector3 velocity, RadialShotSettings settings)
     {
         float angleStep = (settings.maxRotation - settings.minRotation) / settings.NumberOfBullets;
         float angleStart = settings.minRotation;
