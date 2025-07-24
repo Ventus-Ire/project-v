@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [System.Serializable]
@@ -8,8 +9,9 @@ public class RadialShotSettings
     public float BulletSpeed = 1f;
     public float CooldownAfterShot;
 
+    [Serializable] public enum ShotType { Simple, Radial, Spread, Sphere }
     [Header("Shot Type")]
-    public bool shot;
+    public ShotType shot;
 
     [Header("Sphere Settings")]
     public int NumberOfRings = 3;

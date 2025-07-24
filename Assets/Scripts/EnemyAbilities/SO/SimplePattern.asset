@@ -19,7 +19,7 @@ MonoBehaviour:
   - NumberOfBullets: 8
     BulletSpeed: 4
     CooldownAfterShot: 0.2
-    shot: 0
+    shot: 3
     NumberOfRings: 5
     minRotation: -45
     maxRotation: 45
@@ -27,7 +27,7 @@ MonoBehaviour:
   - NumberOfBullets: 5
     BulletSpeed: 1
     CooldownAfterShot: 1
-    shot: 0
+    shot: 1
     NumberOfRings: 1
     minRotation: 0
     maxRotation: 360

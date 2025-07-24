@@ -26,7 +26,7 @@ public class WeaponShot : MonoBehaviour
         {
             for (int i = 0; i < shotPattern.patternSettings.Length; i++)
             {
-                BulletShotType.SphericalShot(transform.position, transform.forward, shotPattern.patternSettings[i]);
+                DetermineShotType(shotPattern.patternSettings[i]);
                 yield return new WaitForSeconds(shotPattern.patternSettings[i].CooldownAfterShot);
             }
             lap++;
@@ -38,8 +38,25 @@ public class WeaponShot : MonoBehaviour
 
     }
 
-    private void DetermineShotType()
+    private void DetermineShotType(RadialShotSettings settings)
     {
+        switch (settings.shot)
+        {
+            case RadialShotSettings.ShotType.Simple:
+                BulletShotType.Shot(transform.position, transform.forward, settings.BulletSpeed);
+                break;
 
+            case RadialShotSettings.ShotType.Spread:
+                BulletShotType.SpreadShot(transform.position, transform.forward, settings);
+                break;
+
+            case RadialShotSettings.ShotType.Radial:
+                BulletShotType.RadialShot(transform.position, transform.forward, settings);
+                break;
+
+            case RadialShotSettings.ShotType.Sphere:
+                BulletShotType.SphericalShot(transform.position, transform.forward, settings);
+                break;
+        }
     }
 }
