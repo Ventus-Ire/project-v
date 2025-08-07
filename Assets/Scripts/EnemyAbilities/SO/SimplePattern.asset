@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bbcd4678ee39b4449aaf396c339ec1b, type: 3}
   m_Name: SimplePattern
   m_EditorClassIdentifier: 
-  repetitions: 2
-  startDelay: 0.5
-  endDelay: 1
+  repetitions: 1
+  startDelay: 0.01
+  endDelay: 0.01
   patternSettings:
   - NumberOfBullets: 8
     BulletSpeed: 4
